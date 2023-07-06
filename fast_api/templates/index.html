@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Document</title>
+
+    <style>
+        .contenu{
+            width: 500px;
+            height: 200px;
+            border: 1px solid black;
+            margin: 20px;
+        }
+        .valuebet{
+            font-size: medium;
+        }
+        .spanValue:nth-child(2) {
+        /* Styles pour le 2ème enfant */
+        margin-left: 10px
+        }
+        .spanValue{
+            margin-left: 5px;
+            font-family: Arial, sans-serif;
+            font-size:20px;
+            border: 1px solid black;
+        }
+        .button-container {
+          display: flex; /* Utilisez flexbox pour aligner les boutons horizontalement */
+        }
+
+        .button-container button {
+          margin-right: 10px; /* Ajoute une marge à droite pour séparer les boutons */
+        }
+
+       
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Mon Site</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">À propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Inserer url1" aria-label="Search">
+            <input class="form-control mr-sm-2" class="url1" type="search" placeholder="Inserer url2" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" onclick="global()" >soumettre</button>
+          </form>
+        </div>
+      </nav>
+    <div class="button-container">
+        <button id="startButton" onclick="startInterval()">Démarrer</button>
+        <button id="pauseButton" onclick="pauseInterval()">Pause</button>
+    </div>
+    <div class="container col-md-6 mx-auto">
+        <h1>welcome</h1>
+        <div >
+
+        </div>
+    </div>
+
+    
+    <button class="btn btn-outline-blue my-2 my-sm-0" class="arret" onclick="stop()">Rechercher</button>
+    <div style="height: 50px;"></div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> 
+<script>
+
+        
+    //const url = window.location.href;
+        //console.log(url);
+
+    
+    // let recuperation =()=>{
+    //     // Sélectionnez l'élément input en utilisant la classe "url"
+    //     let inputElement1 = document.querySelector('.url');
+
+    //     // Récupérez la valeur de l'input
+    //     let valeurInput1 = inputElement1.value;
+
+    //     let inputElement2 = document.querySelector('.url1');
+
+    //     // Récupérez la valeur de l'input
+    //     let valeurInput2 = inputElement2.value;
+
+    //     return [valeurInput1,valeurInput2]
+    // }
+
+    const url="http://35.200.218.236:8000/item/valuebet"
+    const getdata = async (url) => {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    };
+
+    async function frotte() {
+        let data = await getdata(url);
+        let data1=JSON.stringify(data);
+        let data2=JSON.parse(data1)
+
+        
+        const conteneur = document.querySelector(".container");
+
+        data2.forEach((i) => {
+            const divElement = document.createElement("div");
+            divElement.classList.add("my-div", "row","bg-info");
+            console.log(i.but);
+            
+            let _1xbet=i["1xbet"]
+            const valuebetElements = Object.entries(i.valuebet).map(([cle, valeur]) => `<span class="spanValue">${cle} &nbsp;&nbsp;&nbsp; ${parseFloat(valeur).toFixed(2)}</span>`).join('    ');
+            const contenu = `<div class="contenu">
+                                <h5 class="e1xbet">${_1xbet} <a href="${i.lien}" target="_blank">1xbet</a></h5>
+                                <h5 class="ebetkeen">${i.betkeen} <a href="${i.lien1}" target="_blank">betkeen</a></h5>
+                                <h3 class="valuebet">${valuebetElements}</h3>
+                                <button onclick="toggleHiddenData(this)" class="cbutton">Afficher/Cacher</button>
+                                <button  onclick="deleteData(this)" class="cbutton">supprimer</button>
+                                <div class="hidden-data" style="display: none;">
+                                    <script type="application/json">
+                                        ${JSON.stringify(i)}
+                                    <\/script>
+                                <\/div>
+                            <\/div>`;
+
+
+            divElement.innerHTML = contenu;
+            conteneur.appendChild(divElement);
+        });
+    }
+
+    frotte();
+
+    function deleteData(button) {
+            const infoBox = button.parentNode;
+            const hiddenDataElement = infoBox.querySelector('.hidden-data');
+            let hiddenDataScript = hiddenDataElement.querySelector('script[type="application/json"]');
+            let hiddenData = JSON.parse(hiddenDataScript.textContent);
+
+
+            
+
+            fetch('http://35.200.218.236:8000/item/retour', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(hiddenData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    infoBox.remove();
+                } else {
+                    throw new Error('La suppression a échoué');
+                }
+            })
+            .catch(error => {
+                console.log('Une erreur s\'est produite lors de la suppression :', error);
+            });
+        }
+
+
+async function updateData() {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const infoBoxes = document.querySelectorAll('.hidden-data');
+
+        //new code
+        const ancienData = Array.from(infoBoxes).map(i => {
+            const donnee = i.querySelector('script[type="application/json"]');
+            return JSON.parse(donnee.textContent);
+            });
+
+        infoBoxes.forEach(infoBox => {
+            const donnee = infoBox.querySelector('script[type="application/json"]');
+            const val=infoBox.parentNode.querySelector("h3")
+            console.log(val)
+            let hidden_data=JSON.parse(donnee.textContent)
+            let result=data.filter((d)=>{
+                console.log(d.id)
+                console.log(hidden_data.id)
+                return d.id === hidden_data.id;
+            })
+            //console.log(result)
+            if (result.length === 0){
+                //new corrections
+                infoBox.parentNode.parentNode.remove();
+            } else if (result){
+                const valuebetCase=infoBox.parentNode.querySelector(".valuebet")
+                //console.log(valuebetCase)
+                //console.log(result[0].valuebet)
+                const valuebetElements = Object.entries(result[0].valuebet).map(([cle, valeur]) => `<span class="spanValue">${cle} &nbsp;&nbsp;&nbsp; ${parseFloat(valeur).toFixed(2)}</span>`).join('    ');
+                //console.log(valuebetElements)
+                valuebetCase.innerHTML=valuebetElements
+                donnee.textContent=JSON.stringify(result)
+
+            }
+
+            //console.log("fertich")
+        });
+        //new corrections
+        const newData=data.filter(element => !ancienData.some(item => item.id === element.id));
+        //const newData1=data.filter(element => ancienData.some(item => item.id === element.id));
+        const conteneur = document.querySelector(".container");
+
+        newData.forEach((i) => {
+            const divElement = document.createElement("div");
+            divElement.classList.add("my-div", "row","bg-info");
+            console.log(i.but);
+       
+            let _1xbet=i["1xbet"]
+            const valuebetElements = Object.entries(i.valuebet).map(([cle, valeur]) => `<span class="spanValue">${cle} &nbsp;&nbsp;&nbsp; ${parseFloat(valeur).toFixed(2)}</span>`).join('    ');
+            console.log(valuebetElements)
+            const contenu = `<div class="contenu">
+                                <h5 class="e1xbet">${_1xbet} <a href="${i.lien}" target="_blank">1xbet</a></h5>
+                                <h5 class="ebetkeen">${i.betkeen} <a href="${i.lien1}" target="_blank">betkeen</a></h5>
+                                <h3 class="valuebet">${valuebetElements}</h3>
+                                <button  onclick="deleteData(this)" class="cbutton">supprimer</button>
+                                <button onclick="toggleHiddenData(this)" class="cbutton">Afficher/Cacher</button>
+                                <div class="hidden-data" style="display: none;">
+                                    <script type="application/json">
+                                        ${JSON.stringify(i)}
+                                    <\/script>
+                                <\/div>
+                            <\/div>`;
+
+
+            divElement.innerHTML = contenu;
+            conteneur.appendChild(divElement);
+         });
+    } catch (error) {
+        console.log('Une erreur s\'est produite lors de la récupération des données :', error);
+    }
+}
+
+
+
+// let resultat1=setInterval(
+//     async ()=>{
+//         let a=await updateData()
+//     },
+//     20000
+// )
+
+// let stop=()=>{
+//     clearInterval(resultat1)
+
+// }
+
+var interval; // Variable pour stocker l'ID du setInterval
+
+function startInterval() {
+  // Démarrer le setInterval avec une fonction et une intervalle de temps (1000ms = 1 seconde)
+  interval = setInterval(async ()=>{
+        let a=await updateData()
+    },
+    7000
+)
+}
+
+function pauseInterval() {
+  // Arrêter le setInterval en utilisant l'ID stocké dans la variable interval
+  clearInterval(interval);
+  console.log('Le setInterval est en pause');
+}
+function toggleHiddenData(button) {
+    const hiddenData = button.parentNode.querySelector('.hidden-data');
+    if (hiddenData.style.display === 'none') {
+      hiddenData.style.display = 'block';
+    } else {
+      hiddenData.style.display = 'none';
+    }
+  }
+</script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
