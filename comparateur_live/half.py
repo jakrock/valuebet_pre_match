@@ -193,7 +193,7 @@ async def match_odd_recuperation(a):
     unxbet=f"{O1} {O2}".replace(" ","-")
     ligue=data["Value"]["LE"].replace(" ","-")
     LI=data["Value"]["LI"]
-    lien=f"https://1xbet.mobi/fr/live/football/{LI}{ligue}/{Id}{unxbet}"
+    lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
     print(lien)
     lien1=f"https://desk.easysport.bet/Home/FormBet/{Id1}"
     b["lien"]=lien
