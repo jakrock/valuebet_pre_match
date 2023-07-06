@@ -330,8 +330,8 @@ async def over_under_recuperation(a):
     _1xbet=f"{O1} v {O2}"
     
     unxbet=f"{O1} {O2}".replace(" ","-")
-    ligue=data["value"]["LE"].replace(" ","-")
-    LI=data["value"]["LI"]
+    ligue=data["Value"]["LE"].replace(" ","-")
+    LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}{ligue}/{Id}{unxbet}"
     print(lien)
     lien1=f"https://desk.easysport.bet/Home/FormBet/{Id1}"
