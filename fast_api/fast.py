@@ -12,7 +12,7 @@ app = FastAPI()
 
 @app.get("/indexsurebet")
 async def read_root():
-    return FileResponse("/home/romualdjja/projet/fast_api/templates/indexsurebet.html")
+    return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexsurebet.html")
 
 
 
@@ -20,7 +20,7 @@ async def read_root():
 
 @app.get("/")
 async def read_root():
-    return FileResponse("/home/romualdjja/projet/fast_api/templates/index.html")
+    return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/index.html")
 
 
 @app.get("/item/{item_id}")
