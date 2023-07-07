@@ -327,8 +327,8 @@ async def over_under_recuperation(a):
         print(f'Probleme {e} au niveau de l api betkeen')
         return None
     betkeen=data1["EventMarket"]
-    O1=data["Value"]["O1"].replace(".","")
-    O2=data["Value"]["O2"].replace(".","")
+    O1=data["Value"]["O1"]
+    O2=data["Value"]["O2"]
     _1xbet=f"{O1} v {O2}"
     
     unxbet=f"{O1} {O2}".replace(" ","-")

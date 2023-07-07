@@ -191,7 +191,7 @@ async def match_odd_recuperation(a):
     O2=data["Value"]["O2"]
     _1xbet=f"{O1} v {O2}"
     unxbet=f"{O1} {O2}".replace(" ","-")
-    ligue=data["Value"]["LE"].replace(" ","-")
+    ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
     LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
     print(lien)
