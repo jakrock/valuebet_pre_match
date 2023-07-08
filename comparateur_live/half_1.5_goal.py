@@ -354,7 +354,7 @@ async def over_under_recuperation(a):
 
 
     try:
-        await over_under_traitement(a,data1,a1,goal=1.5,G=4,over_T=9,under_T=10)
+        await over_under_traitement(lien,lien1,unxbet,ligue,LI,a,data1,a1,goal=1.5,G=4,over_T=9,under_T=10)
 
     except Exception as e :
         print(f"l erreur {e} est survenue lors de l execution de over_under_traitement")
