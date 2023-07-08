@@ -103,3 +103,21 @@ print(marge)
 
 
 print("lol")
+import re
+
+def enlever_caracteres_speciaux0(chaine):
+    chaine = re.sub(r'[^\w\s]', '', chaine)
+    return chaine
+
+chaine_originale = "Étudiez l'étranger!"
+chaine_sans_caracteres_speciaux = enlever_caracteres_speciaux0(chaine_originale)
+print(chaine_sans_caracteres_speciaux)  # Affiche "Etudiez letranger"
+import unicodedata
+
+def enlever_caracteres_speciaux(chaine):
+    chaine = unicodedata.normalize('NFKD', chaine).encode('ASCII', 'ignore').decode('utf-8')
+    return chaine
+
+chaine_originale = "Étudiez l'étranger!"
+chaine_sans_caracteres_speciaux = enlever_caracteres_speciaux(enlever_caracteres_speciaux0(chaine_originale))
+print(chaine_sans_caracteres_speciaux)  # Affiche "Etudiez l'etranger!"

@@ -151,6 +151,12 @@ def filtarage_surbet():
     temps=time.time()-2500
     result1=collection.delete_many({"last_update":{"$lt":temps}})
 
+import unicodedata
+
+def enlever_caracteres_speciaux(chaine):
+    chaine = unicodedata.normalize('NFKD', chaine).encode('ASCII', 'ignore').decode('utf-8')
+    return chaine
+
 
 async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data1,a1,*args,**kwargs):
     last_surebet()
@@ -361,6 +367,7 @@ async def over_under_recuperation(a):
     _1xbet=f"{O1} v {O2}"
     
     unxbet=f"{O1} {O2}".replace(" ","-")
+    unxbet=enlever_caracteres_speciaux(unxbet)
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
     LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"

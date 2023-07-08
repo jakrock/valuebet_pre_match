@@ -160,6 +160,12 @@ from functools import reduce
 print(list(collection2.find({},{})))
 result=collection2.delete_one({"id_1x2_1xbet":453156054})
 
+import unicodedata
+
+def enlever_caracteres_speciaux(chaine):
+    chaine = unicodedata.normalize('NFKD', chaine).encode('ASCII', 'ignore').decode('utf-8')
+    return chaine
+
 async def match_odd_recuperation(a):
     b=a.copy()
     Id = a["id_1x2_1xbet"]
@@ -187,6 +193,7 @@ async def match_odd_recuperation(a):
     O2=data["Value"]["O2"]
     _1xbet=f"{O1} v {O2}"
     unxbet=f"{O1} {O2}".replace(" ","-")
+    unxbet=enlever_caracteres_speciaux(unxbet)
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
     LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
