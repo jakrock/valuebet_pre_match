@@ -273,15 +273,15 @@ async def match_odd_recuperation(a):
         value={}
         if value_home_1xbet:
             value["value_home_1xbet"]=value_home_1xbet
-            value["ecart"]=value_home_1xbet-home_betkeen
+            value["ecart"]=value_home_1xbet-m_home_betkeen
             value["valeur"]=value_home_1xbet
         if value_away_1xbet:
             value["value_away_1xbet"]=value_away_1xbet
-            value["ecart"]=value_away_1xbet-away_betkeen
+            value["ecart"]=value_away_1xbet-m_away_betkeen
             value["valeur"]=value_away_1xbet
         if value_draw_1xbet:
             value["value_draw_1xbet"]=value_draw_1xbet
-            value["ecart"]=value_draw_1xbet-draw_betkeen
+            value["ecart"]=value_draw_1xbet-m_draw_betkeen
             value["valeur"]=value_draw_1xbet
 
         v["valuebet"]=value
