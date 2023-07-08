@@ -23,6 +23,11 @@ async def read_root():
     return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/index.html")
 
 
+@app.get("/mini")
+async def read_root():
+    return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexmini.html")
+
+
 @app.get("/item/{item_id}")
 async def valueApi(item_id:str):
 
@@ -42,6 +47,10 @@ async def valueApi(item_id:str):
 @app.post("/item/retour")
 async def create_item(request: Request):
     # Récupérer les données brutes du corps de la requête
+    
+
+    db=client["finale"]
+    collection5=db["data supprimer"]
     item_data = await request.body()
 
     import json
@@ -49,7 +58,7 @@ async def create_item(request: Request):
     item_data_json = item_data.decode()  # Décodez les données en tant que chaîne JSON
     item_data_dict = json.loads(item_data_json)  # Convertissez la chaîne JSON en un dictionnaire Python
 
-    result = collection5.insert_one(item_data_dict)
+    result = collection5.insert_one(item_data_dict[0])
 
     # Traiter les données ou effectuer les opérations souhaitées
     # ...
@@ -60,6 +69,9 @@ async def create_item(request: Request):
 @app.post("/item/retour/surebet")
 async def create_item(request: Request):
     # Récupérer les données brutes du corps de la requête
+    
+    db=client["finale"]
+    collection6=db["data supprimer1"]
     item_data = await request.body()
 
     import json
@@ -67,23 +79,24 @@ async def create_item(request: Request):
     item_data_json = item_data.decode()  # Décodez les données en tant que chaîne JSON
     item_data_dict = json.loads(item_data_json)  # Convertissez la chaîne JSON en un dictionnaire Python
 
-    result = collection6.insert_one(item_data_dict)
+    result = collection6.insert_one(item_data_dict[0])
 
     # Traiter les données ou effectuer les opérations souhaitées
     # ...
 
     return {"message": "Item created successfully"}
 
-'''
-@app.get("/item/{item_id}/{debut}/{fin}/{etat}")
-async def datapi(item_id:str,debut:int=None,fin:int=None,etat:str=None):
+
+@app.get("/mini/{item_id}")
+async def datapi(item_id:str):
+    db=client["finale"]
     collection6=db[item_id]
-    if etat:
-        return sorted(list(collection6.find({},{"_id":0})),lambda x:x["valuebet"]["ecart"])[debut:fin]
-    else: list(collection6.find({},{"_id":0}))[debut:fin]
+    data=list(collection6.find({},{"_id":0}))
+    newdata=list(filter(lambda x:x["valeur"]<1.89,data))
+    return newdata
+   
 
 
-'''
 
 
 

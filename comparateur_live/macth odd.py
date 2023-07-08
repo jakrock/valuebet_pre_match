@@ -189,12 +189,13 @@ async def match_odd_recuperation(a):
         return None
     
     betkeen=data1["EventMarket"]
-    O1=data["Value"]["O1"]
-    O2=data["Value"]["O2"]
+    O1=data["Value"]["O1"].replace(" ","")
+    O2=data["Value"]["O2"].replace(" ","")
     _1xbet=f"{O1} v {O2}"
     unxbet=f"{O1} {O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
+    ligue=enlever_caracteres_speciaux(ligue)
     LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
     print(lien)
@@ -254,13 +255,13 @@ async def match_odd_recuperation(a):
         m_away_betkeen=(3*away_betkeen)/(3-marge*away_betkeen)
         m_draw_betkeen=(3*draw_betkeen)/(3-marge*draw_betkeen)
 
-        if (home_1xbet > m_home_betkeen) and (home_1xbet - m_home_betkeen > 0.08):
+        if (home_1xbet > m_home_betkeen) and (home_1xbet - m_home_betkeen > 0.04):
             value_home_1xbet = home_1xbet
             print(value_home_1xbet)
-        if (away_1xbet > m_away_betkeen) and (away_1xbet - m_away_betkeen > 0.08):
+        if (away_1xbet > m_away_betkeen) and (away_1xbet - m_away_betkeen > 0.04):
             value_away_1xbet = away_1xbet
             print(value_away_1xbet)
-        if (draw_1xbet > m_draw_betkeen) and (draw_1xbet - m_draw_betkeen > 0.08):
+        if (draw_1xbet > m_draw_betkeen) and (draw_1xbet - m_draw_betkeen > 0.04):
             value_draw_1xbet = draw_1xbet
             print(value_draw_1xbet)
         print(f"le dictionnaire est le {b}")
@@ -273,12 +274,16 @@ async def match_odd_recuperation(a):
         if value_home_1xbet:
             value["value_home_1xbet"]=value_home_1xbet
             value["ecart"]=value_home_1xbet-home_betkeen
+            value["valeur"]=value_home_1xbet
         if value_away_1xbet:
             value["value_away_1xbet"]=value_away_1xbet
             value["ecart"]=value_away_1xbet-away_betkeen
+            value["valeur"]=value_away_1xbet
         if value_draw_1xbet:
             value["value_draw_1xbet"]=value_draw_1xbet
             value["ecart"]=value_draw_1xbet-draw_betkeen
+            value["valeur"]=value_draw_1xbet
+
         v["valuebet"]=value
         v["last_update"]=time.time()
         print(v)

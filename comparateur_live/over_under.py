@@ -222,9 +222,11 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
         if value_over_1xbet:
             value[f"value_over_1xbet {goal}".replace(".",",")]=value_over_1xbet
             value["ecart"]=value_over_1xbet-over_betkeen
+            value["valeur"]=value_over_1xbet
         if value_under_1xbet:
             value[f"value_under_1xbet {goal}".replace(".",",")]=value_under_1xbet
             value["ecart"]=value_under_1xbet-under_betkeen
+            value["valeur"]=value_under_1xbet
         if value:
             v["valuebet"]=value
             v["but"]=goal
@@ -362,13 +364,14 @@ async def over_under_recuperation(a):
         return None
 
     betkeen=data1["EventMarket"]
-    O1=data["Value"]["O1"]
-    O2=data["Value"]["O2"]
+    O1=data["Value"]["O1"].replace(" ","")
+    O2=data["Value"]["O2"].replace(" ","")
     _1xbet=f"{O1} v {O2}"
     
     unxbet=f"{O1} {O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
+    ligue=enlever_caracteres_speciaux(ligue)
     LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
     print(lien)
