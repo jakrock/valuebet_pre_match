@@ -11,7 +11,7 @@ collection6=db["data supprimer1"]
 app = FastAPI()
 
 @app.get("/indexsurebet")
-async def read_root():
+async def read_root2():
     return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexsurebet.html")
 
 
@@ -24,7 +24,7 @@ async def read_root():
 
 
 @app.get("/mini")
-async def read_root():
+async def read_root1():
     return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexmini.html")
 
 
@@ -67,7 +67,7 @@ async def create_item(request: Request):
 
 
 @app.post("/item/retour/surebet")
-async def create_item(request: Request):
+async def create_item1(request: Request):
     # Récupérer les données brutes du corps de la requête
     
     db=client["finale"]
@@ -87,10 +87,10 @@ async def create_item(request: Request):
     return {"message": "Item created successfully"}
 
 
-@app.get("/mini/{item_id}")
-async def datapi(item_id:str):
+@app.get("/mini/{item_id1}")
+async def datapi(item_id1:str):
     db=client["finale"]
-    collection6=db[item_id]
+    collection6=db[item_id1]
     data=list(collection6.find({},{"_id":0}))
     newdata=list(filter(lambda x:x["valeur"]<1.89,data))
     return newdata
