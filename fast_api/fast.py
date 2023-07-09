@@ -96,6 +96,19 @@ async def create_item1(request: Request):
 #     return newdata
    
 
+@app.get("/mini")
+async def read_root3():
+    return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexmini.html")
+
+
+@app.get("/mini1/mini2")
+async def datapi():
+    db=client["finale"]
+    collection6=db['valuebet']
+    data=list(collection6.find({},{"_id":0}))
+    newdata=list(filter(lambda x:x["valeur"]<2.21,data))
+    return newdata
+   
 
 
 
