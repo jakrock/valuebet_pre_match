@@ -157,6 +157,12 @@ def enlever_caracteres_speciaux(chaine):
     chaine = unicodedata.normalize('NFKD', chaine).encode('ASCII', 'ignore').decode('utf-8')
     return chaine
 
+import re
+
+def enlever_caracteres_speciaux1(chaine):
+    caracteres_speciaux = r"[(){},.'\"]"
+    return re.sub(caracteres_speciaux, '', chaine)
+
 
 async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data1,a1,*args,**kwargs):
     last_surebet()
@@ -364,14 +370,18 @@ async def over_under_recuperation(a):
         return None
 
     betkeen=data1["EventMarket"]
-    O1=data["Value"]["O1"].replace(" ","")
-    O2=data["Value"]["O2"].replace(" ","")
+    O1=data["Value"]["O1"].replace(" ","-")
+    O1=enlever_caracteres_speciaux(O1)
+    O2=data["Value"]["O2"].replace(" ","-")
+    O2=enlever_caracteres_speciaux(O2)
     _1xbet=f"{O1} v {O2}"
     
-    unxbet=f"{O1} {O2}".replace(" ","-")
+    unxbet=f"{O1}-{O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
+    unxbet=enlever_caracteres_speciaux1(unxbet)
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
     ligue=enlever_caracteres_speciaux(ligue)
+    ligue=enlever_caracteres_speciaux1(ligue)
     LI=data["Value"]["LI"]
     lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
     print(lien)
