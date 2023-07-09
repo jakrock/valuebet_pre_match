@@ -12,7 +12,7 @@ async def read_root1():
     return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexmini.html")
 
 
-@app.get("/mini")
+@app.get("/mini1/mini")
 async def datapi(item_id1:str):
     db=client["finale"]
     collection6=db['valuebet']
