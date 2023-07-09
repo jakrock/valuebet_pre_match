@@ -13,7 +13,7 @@ async def read_root1():
 
 
 @app.get("/mini1/mini")
-async def datapi(item_id1:str):
+async def datapi():
     db=client["finale"]
     collection6=db['valuebet']
     data=list(collection6.find({},{"_id":0}))
@@ -26,4 +26,4 @@ async def datapi(item_id1:str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app,host="0.0.0.0",port=80)
+    uvicorn.run(app,host="0.0.0.0",port=8000)
