@@ -4,8 +4,8 @@ import pymongo
 
 client=pymongo.MongoClient('localhost',27017)
 db=client["finale"]
-collection5=db["data supprimer"]
-collection6=db["data supprimer1"]
+# collection5=db["data supprimer"]
+# collection6=db["data supprimer1"]
 #collection6=db["pure_valubet"]
 
 app = FastAPI()
@@ -23,9 +23,9 @@ async def read_root():
     return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/index.html")
 
 
-@app.get("/mini")
-async def read_root1():
-    return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexmini.html")
+# @app.get("/mini")
+# async def read_root1():
+#     return FileResponse("/home/romualdjja/projet1/projet1/fast_api/templates/indexmini.html")
 
 
 @app.get("/item/{item_id}")
@@ -87,13 +87,13 @@ async def create_item1(request: Request):
     return {"message": "Item created successfully"}
 
 
-@app.get("/mini")
-async def datapi(item_id1:str):
-    db=client["finale"]
-    collection6=db['valuebet']
-    data=list(collection6.find({},{"_id":0}))
-    newdata=list(filter(lambda x:x["valeur"]<1.89,data))
-    return newdata
+# @app.get("/mini")
+# async def datapi(item_id1:str):
+#     db=client["finale"]
+#     collection6=db['valuebet']
+#     data=list(collection6.find({},{"_id":0}))
+#     newdata=list(filter(lambda x:x["valeur"]<1.89,data))
+#     return newdata
    
 
 
