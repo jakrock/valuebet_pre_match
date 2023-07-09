@@ -87,10 +87,10 @@ async def create_item1(request: Request):
     return {"message": "Item created successfully"}
 
 
-@app.get("/mini/{item_id1}")
+@app.get("/mini")
 async def datapi(item_id1:str):
     db=client["finale"]
-    collection6=db[item_id1]
+    collection6=db['valuebet']
     data=list(collection6.find({},{"_id":0}))
     newdata=list(filter(lambda x:x["valeur"]<1.89,data))
     return newdata
