@@ -195,6 +195,8 @@ async function updateData() {
         const response = await fetch(url);
         const data = await response.json();
         const infoBoxes = document.querySelectorAll('.hidden-data');
+        const conteneur = document.querySelector(".container");
+
 
         //new code
         const ancienData = Array.from(infoBoxes).map(i => {
@@ -231,6 +233,7 @@ async function updateData() {
         //     //console.log("fertich")
         // });
         let elementsASupprimer = [];
+        const scrollTopPosition = conteneur.scrollTop;
 
         infoBoxes.forEach(infoBox => {
             const donnee = infoBox.querySelector('script[type="application/json"]');
@@ -253,18 +256,19 @@ async function updateData() {
                 donnee.textContent = JSON.stringify(result);
             }
         });
+        
 
         // Supprimer les éléments qui ne satisfont pas la condition en conservant l'ordre
         elementsASupprimer.forEach(element => {
             element.remove();
         });
-
+        conteneur.scrollTop = scrollTopPosition;
 
 
         //new corrections
         const newData=data.filter(element => !ancienData.some(item => item.id === element.id));
         //const newData1=data.filter(element => ancienData.some(item => item.id === element.id));
-        const conteneur = document.querySelector(".container");
+        const scrollTopPosition1 = conteneur.scrollTop;
 
         newData.forEach((i) => {
             const divElement = document.createElement("div");
@@ -291,6 +295,8 @@ async function updateData() {
             divElement.innerHTML = contenu;
             conteneur.appendChild(divElement);
          });
+         conteneur.scrollTop = scrollTopPosition1;
+
     } catch (error) {
         console.log('Une erreur s\'est produite lors de la récupération des données :', error);
     }
