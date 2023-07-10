@@ -15,6 +15,7 @@ from pprint import pprint
 import json
 import pymongo
 import itertools
+import requests
 
 
 import sys
@@ -40,6 +41,7 @@ async def effectuer_requete(url):
             json_response = await response.json()
             return json_response
 url="https://1xbet.mobi/LineFeed/GetChampsZip?sport=1&lng=fr&tf=1440&tz=2&country=182"
+urlchamp="https://1xbet.mobi/LineFeed/GetChampsZip?sport=1&lng=fr&tf=1440&country=182"
 #url='https://1xbet.mobi/LiveFeed/GetChampsZip?sport=1&lng=en&country=182'
 
 
@@ -49,7 +51,7 @@ d=[]
 for j,i in enumerate(a["Value"]):
     #pprint(i["LI"])
     d.append([j,i["CI"],i["LI"]])
-
+print(d)
 result=collection1.delete_many({})
 print(f"Nombre de documents supprimés : {result.deleted_count}")
 result=collection1.insert_one({"liste":d})
@@ -58,8 +60,10 @@ print("ID du document inséré :", result.inserted_id)
 
 l=collection1.find_one()["liste"]
 print(l[2])
-#k1=f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=fr&tz=2&mode=4&country=182&getEmpty=true"
-urls=[f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=en&tz=2&mode=4&country=182&getEmpty=true&mobi=true" for i in l]
+#ulrs11="https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&count=50&lng=fr&mode=4&country=182&getEmpty=true"
+
+#urls=f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=fr&tz=2&mode=4&country=182&getEmpty=true"
+urls=[f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=fr&tf=2880&mode=4&country=182&getEmpty=true" for i in l]
 print(urls)
 taille_lot=20
 lot=[urls[i:i+taille_lot] for i in range(0,len(urls),taille_lot)]
@@ -89,6 +93,7 @@ while n<len(lot):
     try:
         a = requetemorceaux(lot[n])
     except Exception as e :
+
         n-=1
         print(f" erreur{e}")
         time.sleep(5)
