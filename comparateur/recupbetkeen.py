@@ -72,7 +72,7 @@ def replace_i_display_length(url):
 
 
 contenu=''
-with open('../../../repo/appglobal/projet/comparateur_live/fichierajax.txt', "r") as fichier:
+with open('../../projet1/comparateur_live/fichierajax.txt', "r") as fichier:
     contenu=str(fichier.read())
 # URL de la requête
 url = str(replace_i_display_length(contenu))
