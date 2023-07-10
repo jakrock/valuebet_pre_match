@@ -23,7 +23,7 @@ import sys
 #sys.stdout = open("NUL", "w")
 
 import subprocess
-subprocess.run(['python3', 'cookiebetkeen.py'])
+#subprocess.run(['python3', 'cookiebetkeen.py'])
 def timestamp(x):
     # Convertir la date en format datetime
     x=x.replace(":"," ")
@@ -56,7 +56,7 @@ def replace_i_display_length(url):
     # Recherche le paramètre "iDisplayLength" dans l'URL
     old_value = "iDisplayLength=200"
     old_value1 = "iDisplayLength=500"
-    new_value = "iDisplayLength=9000"
+    new_value = "iDisplayLength=10000"
     if old_value in url:
         new_url = url.replace(old_value, new_value)
 
@@ -72,7 +72,7 @@ def replace_i_display_length(url):
 
 
 contenu=''
-with open('fichierajax.txt', "r") as fichier:
+with open('../../../repo/appglobal/projet/comparateur_live/fichierajax.txt', "r") as fichier:
     contenu=str(fichier.read())
 # URL de la requête
 url = str(replace_i_display_length(contenu))
@@ -83,7 +83,7 @@ client = pymongo.MongoClient("mongodb://localhost:27017/")
 db=client["info_betkeen"]
 #collection= db["cookie_desktop"]
 #collection1=db["cookie_mobile"]
-con=db["liste_match_betkeen_live"]
+con=db["liste_match_betkeen"]
 
 c=client.info_betkeen.collection
 #__r=c.find()
@@ -142,7 +142,7 @@ def normal(content):
 valeur=normal(content["aaData"])
 
 #valeur =[x for x in valeur if timestamp(x["S"])<timestamp_now or timestamp(x["S"])<timestamp_now+660]
-valeur =[x for x in valeur if (timestamp(x["S"])<timestamp_now or timestamp(x["S"])<timestamp_now+660) and timestamp_now<timestamp(x["S"])+7200]
+#valeur =[x for x in valeur if (timestamp(x["S"])<timestamp_now or timestamp(x["S"])<timestamp_now+660) and timestamp_now<timestamp(x["S"])+7200]
 #print(valeur)
 print((valeur))
 

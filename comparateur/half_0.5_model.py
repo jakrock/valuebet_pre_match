@@ -22,7 +22,7 @@ dict_df = df.to_dict('records')
 
 
 client=pymongo.MongoClient('localhost',27017)
-db=client["bet_live"]
+db=client["bet"]
 collection=db["betkeen_live"]
 
 
@@ -39,7 +39,7 @@ def recuperation_id_match_odds(data):
 
 		r1=list(collection.find({"4":str(i["4"])},{"_id":0}))
 
-		db=client["bet_live"]
+		db=client["bet"]
 		collection1=db["stock_temp_live"]
 		resultat2=collection1.delete_many({})
 		resultat=collection1.insert_many(r1)

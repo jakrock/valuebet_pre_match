@@ -28,7 +28,7 @@ import sys
 
 
 client=pymongo.MongoClient('localhost',27017)
-db=client["bet_live"]
+db=client["bet"]
 
 
 contenu=''
@@ -36,7 +36,7 @@ contenu=''
 db=client["info_betkeen"]
 #collection= db["cookie_desktop"]
 #collection1=db["cookie_mobile"]
-con=db["liste_match_betkeen_live"]
+con=db["liste_match_betkeen"]
 
 c=client.info_betkeen.collection1
 #__r=c.find()
@@ -353,7 +353,8 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
 async def over_under_recuperation(a):
     Id = a["id_over_under_1xbet"]
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LiveFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=250&grMode=2&country=182&marketType=1&mobi=true"
+    #ur="https://1xbet.mobi/LineFeed/GetGameZip?id=176746062&lng=fr&isSubGames=true&GroupEvents=true&countevents=50&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=250&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)
     except Exception as e:

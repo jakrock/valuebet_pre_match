@@ -22,7 +22,7 @@ import pymongo
 
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
-db=client["info_macth_1xbet_live"]
+db=client["info_macth_1xbet"]
 collection=db["id_1xbet_live"]
 db1=client["info_betkeen"]
 

@@ -37,7 +37,7 @@ matchbetkeen1= list(itertools.chain.from_iterable(matchbetkeen))
 #print(matchbetkeen1)
 
 client=pymongo.MongoClient('localhost',27017)
-db=client["bet_live"]
+db=client["bet"]
 collection=db["betkeen_live"]
 
 resultat2=collection.delete_many({})

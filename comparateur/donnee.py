@@ -22,7 +22,7 @@ print(list(r))
 db=client["info_betkeen"]
 #collection= db["cookie_desktop"]
 #collection1=db["cookie_mobile"]
-con=db["liste_match_betkeen_live"]
+con=db["liste_match_betkeen"]
 
 a=[{"1":4},{"2":5},{"6":8},{"j":7}]
 

@@ -3,10 +3,11 @@ import pandas as pd
 import pymongo
 import pathlib
 
-import pickle
-from pprint import pprint
+
+
 import asyncio
 from datetime import datetime, timedelta
+
 
 
 
@@ -22,44 +23,44 @@ dict_df = df.to_dict('records')
 
 
 client=pymongo.MongoClient('localhost',27017)
-db=client["bet_live"]
+db=client["bet"]
 collection=db["betkeen_live"]
 
 
 
-def recuperation_id_match_odds(data):
+def recuperation_id_over_under_odds(data):
 	liste=[]
 	Id={}
 	for i in data:
 		Id["events_1xbet"]=i['events1xbet'] or None
 		Id["events_betkeen"]=i["events"] or None
 		Id["heure_debut"]=i["S"] or None
-		Id["id_1x2_1xbet"]=i["Id1xbet"] or None
+		Id["id_over_under_1xbet"]=i["Id1xbet"] or None
 		#Id["4"]=i["4"]
 
 		r1=list(collection.find({"4":str(i["4"])},{"_id":0}))
 
-		db=client["bet_live"]
+		db=client["bet"]
 		collection1=db["stock_temp_live"]
 		resultat2=collection1.delete_many({})
 		resultat=collection1.insert_many(r1)
-		t=list(collection1.find({"market":'Match Odds'},{"_id":0,"I":1}))
+		t=list(collection1.find({"market":'Goal Lines'},{"_id":0,"I":1}))
 		#print(t)
 		try:
-			Id["id_1x2_betkeen"]=t[0]["I"] or None
-			Id["market"]="Match Odds"
+			Id["id_over_under_betkeen"]=t[0]["I"] or None
+			Id["market"]="Goal Lines"
 			liste.append(Id.copy())
 			Id.clear()
 		except:
-			continue
+			pass
 	return liste
-a=recuperation_id_match_odds(dict_df)	
-pprint(a)
+a=recuperation_id_over_under_odds(dict_df)	
+
 
 
 def mongodbParking():
-	db_match_odd=client["finale"]
-	collection1=db_match_odd["Match Odds"]
+	db_over_under=client["finale"]
+	collection1=db_over_under["over_under"]
 
 
 	# Obtention de l'heure actuelle moins 2 heures
@@ -75,7 +76,7 @@ def mongodbParking():
 
 	for i in a:
 		# Vérification si le document existe déjà
-		existing_document = collection1.find_one({'id_1x2_1xbet':i["id_1x2_1xbet"]},{"_id:0"})
+		existing_document = collection1.find_one({'id_over_under_1xbet':i["id_over_under_1xbet"]},{"_id:0"})
 
 		# Exécution de l'opération d'upsert
 		if existing_document is None:
@@ -84,14 +85,10 @@ def mongodbParking():
 		    print("Document inséré avec succès.")
 		else:
 		    print("Le document existe déjà et n'a pas été mis à jour.")
-	# Suppression des documents avec un timestamp inférieur à deux_heures_avant
-	result = collection1.delete_many({"heure_debut": {"$lt": deux_heures_avant}})
 
-	# Affichage du nombre de documents supprimés
-	print(f"{result.deleted_count} documents ont été supprimés.")
 
 	print(list(collection1.find()))
 
 mongodbParking()
 
-client.close()
+
