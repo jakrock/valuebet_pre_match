@@ -65,7 +65,7 @@ headers = {
     'x-requested-with': 'XMLHttpRequest'
 }
 
-db_over_under=client["finale"]
+db_over_under=client["finale_pre"]
 collection1=db_over_under["over_under"]
 data=list(collection1.find({},{"_id":0}))
 
@@ -134,7 +134,7 @@ def last_surebet1():
     result = collection3.delete_many({"last_update": {"$lt": cinq_minute}})
 
 def filtarage_valuebet():
-    db=client["finale"]
+    db=client["finale_pre"]
     collection=db["data supprimer"]
     for i in list(collection.find({},{'_id':0})) :
         result=collection3.delete_many({'id':i["id"]})
@@ -143,7 +143,7 @@ def filtarage_valuebet():
     result1=collection.delete_many({"last_update":{"$lt":temps}})
 
 def filtarage_surbet():
-    db=client["finale"]
+    db=client["finale_pre"]
     collection=db["data supprimer1"]
     for i in list(collection.find({},{'_id':0})) :
         result=collection2.delete_many({'id':i["id"]})

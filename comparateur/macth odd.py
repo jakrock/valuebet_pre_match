@@ -69,7 +69,7 @@ headers = {
     'x-requested-with': 'XMLHttpRequest'
 }
 
-db_match_odd=client["finale"]
+db_match_odd=client["finale_pre"]
 collection1=db_match_odd["Match Odds"]
 data=list(collection1.find({},{"_id":0}))
 
@@ -129,7 +129,7 @@ def flatten(l):
 
 
 def filtarage_valuebet():
-    db=client["finale"]
+    db=client["finale_pre"]
     collection=db["data supprimer"]
     for i in list(collection.find({},{'_id':0})) :
         result=collection3.delete_one({'id':i["id"]})
@@ -138,7 +138,7 @@ def filtarage_valuebet():
     result1=collection.delete_many({"last_update":{"$lt":temps}})
 
 def filtarage_surbet():
-    db=client["finale"]
+    db=client["finale_pre"]
     collection=db["data supprimer1"]
     for i in list(collection.find({},{'_id':0})) :
         result=collection2.delete_one({'id':i["id"]})
@@ -149,7 +149,7 @@ def filtarage_surbet():
 
 # Cette fonction sert à supprimer les surebets qui ont 5 minutes d'existence sans être mis à jour
 def last_surebet():
-    db_match_odd=client["finale"]
+    db_match_odd=client["finale_pre"]
     collection2=db_match_odd["surebet"]
     cinq_minute = time.time() - 110
     result = collection2.delete_many({"last_update": {"$lt": cinq_minute}})
