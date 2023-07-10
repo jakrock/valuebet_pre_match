@@ -58,8 +58,9 @@ print("ID du document inséré :", result.inserted_id)
 
 l=collection1.find_one()["liste"]
 print(l[2])
-#k1=f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=fr&tz=2&mode=4&country=182&getEmpty=true"
-urls=[f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=en&tz=2&mode=4&country=182&getEmpty=true&mobi=true" for i in l]
+#urls=f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=fr&tz=2&mode=4&country=182&getEmpty=true"
+urls=[f"https://1xbet.mobi/LineFeed/Get1x2_VZip?sports=1&champs={i[2]}&count=50&lng=fr&tf=2880&mode=4&country=182&getEmpty=true" for i in l]
+
 print(urls)
 taille_lot=20
 lot=[urls[i:i+taille_lot] for i in range(0,len(urls),taille_lot)]
