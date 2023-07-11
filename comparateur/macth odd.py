@@ -151,7 +151,7 @@ def filtarage_surbet():
 def last_surebet():
     db_match_odd=client["finale_pre"]
     collection2=db_match_odd["surebet"]
-    cinq_minute = time.time() - 110
+    cinq_minute = time.time() - 1010
     result = collection2.delete_many({"last_update": {"$lt": cinq_minute}})
     print(f"{result.deleted_count} documents ont été supprimés.")
 

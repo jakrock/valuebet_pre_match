@@ -126,11 +126,11 @@ def flatten(l):
             yield item
 #cette fonction sert a supprimer les surebet qui on 5minut d exitant sans etre updater
 def last_surebet():
-	cinq_minute=time.time()-110
+	cinq_minute=time.time()-1000
 	result = collection2.delete_many({"last_update": {"$lt": cinq_minute}})
 
 def last_surebet1():
-    cinq_minute=time.time()-100
+    cinq_minute=time.time()-1000
     result = collection3.delete_many({"last_update": {"$lt": cinq_minute}})
 
 def filtarage_valuebet():

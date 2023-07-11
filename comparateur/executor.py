@@ -20,8 +20,8 @@ def main():
     scheduler = BackgroundScheduler()
 
     # Planifiez l'exécution des fonctions avec un intervalle spécifique (par exemple, toutes les 5 secondes)
-    scheduler.add_job(task1, 'interval', seconds=550, max_instances=5)
-    scheduler.add_job(task2, 'interval', seconds=555, max_instances=5)
+    scheduler.add_job(task1, 'interval', seconds=11550, max_instances=5)
+    scheduler.add_job(task2, 'interval', seconds=11555, max_instances=5)
 
     # Démarrez le planificateur en arrière-plan
     scheduler.start()
