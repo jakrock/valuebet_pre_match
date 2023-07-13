@@ -151,7 +151,7 @@ def filtarage_surbet():
 def last_surebet():
     db_match_odd=client["finale_pre"]
     collection2=db_match_odd["surebet"]
-    cinq_minute = time.time() - 1010
+    cinq_minute = time.time() - 300
     result = collection2.delete_many({"last_update": {"$lt": cinq_minute}})
     print(f"{result.deleted_count} documents ont été supprimés.")
 
@@ -303,10 +303,13 @@ async def match_odd_recuperation(a):
             collection3=db_match_odd["valuebet"]
             if list(collection3.find({'id_1x2_1xbet': v["id_1x2_1xbet"],"market":v["market"],"events_1xbet":v["events_1xbet"]},{"_id":0})):
                 filtre={'id_1x2_1xbet': v["id_1x2_1xbet"],"market":v["market"],"events_1xbet":v["events_1xbet"]}
+                v["N_update"]+=1
                 mise_a_jour={'$set':  {k: v[k] for k in v if k != 'id'}}
+                
                 resultat= collection3.update_one(filtre, mise_a_jour)
                 if resultat.modified_count > 0:
                     print("Mise à jour effectuée avec succès.")
+                    
                 else:
                     print("Aucun document mis à jour.")
             else:
