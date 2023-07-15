@@ -2,10 +2,10 @@
 
 # Commandes à exécuter en parallèle
 commands=(
-  "nohup /home/romualdjja/projet1/projet1/comparateur_live/executor.py >/dev/null 2>&1 &"
-  "nohup /home/romualdjja/projet1/projet1/comparateur_live/modelll.py >/dev/null 2>&1 &"
-  "nohup /home/romualdjja/projet1/projet1/comparateur_live/model1111.py >/dev/null 2>&1 &"
-  "nohup /home/romualdjja/projet1/projet1/fast_api/fast.py >/dev/null 2>&1 &"
+  "nohup python3 /home/romualdjja/projet1/projet1/comparateur_live/executor.py >/dev/null 2>&1 &"
+  "nohup python3 /home/romualdjja/projet1/projet1/comparateur_live/modelll.py >/dev/null 2>&1 &"
+  "nohup python3 /home/romualdjja/projet1/projet1/comparateur_live/model1111.py >/dev/null 2>&1 &"
+  "nohup python3 /home/romualdjja/projet1/projet1/fast_api/fast.py >/dev/null 2>&1 &"
 )
 
 # Boucle pour exécuter les commandes en arrière-plan
