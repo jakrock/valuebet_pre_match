@@ -5,25 +5,16 @@ import time
 
 
 
-async def run_file5(file_path):
+async def run_file7(file_path):
     process = await asyncio.create_subprocess_exec('python3', file_path, stdout=asyncio.subprocess.PIPE)
     output, _ = await process.communicate()
     return output.decode().strip()
 
-async def main5():
-    file_path = 'half_1.5_goal.py'
-    output = await run_file5(file_path)
+async def main7():
+    file_path = 'cleaning.py'
+    output = await run_file7(file_path)
     #print(output)
 
-async def run_file6(file_path):
-    process = await asyncio.create_subprocess_exec('python3', file_path, stdout=asyncio.subprocess.PIPE)
-    output, _ = await process.communicate()
-    return output.decode().strip()
-
-async def main6():
-    file_path = 'half_2.5_goal.py'
-    output = await run_file6(file_path)
-    #print(output)
 
 
 
@@ -31,11 +22,8 @@ async def main():
     # Créez un planificateur asyncio
     scheduler = AsyncIOScheduler()
 
-    # Planifiez l'exécution des fonctions avec un intervalle spécifique (par exemple, toutes les 5 secondes)
-
-    scheduler.add_job(main5, 'interval', seconds=350, max_instances=16)
-    scheduler.add_job(main6, 'interval', seconds=350, max_instances=16)
-
+    # Planifiez l'exécution des fonctions avec un intervalle spécifique
+    scheduler.add_job(main7, 'interval', seconds=20000, max_instances=10)
 
 
     # Démarrez le planificateur asyncio

@@ -126,11 +126,11 @@ def flatten(l):
             yield item
 #cette fonction sert a supprimer les surebet qui on 5minut d exitant sans etre updater
 def last_surebet():
-	cinq_minute=time.time()-60
+	cinq_minute=time.time()-600
 	result = collection2.delete_many({"last_update": {"$lt": cinq_minute}})
 
 def last_surebet1():
-    cinq_minute=time.time()-60
+    cinq_minute=time.time()-600
     result = collection3.delete_many({"last_update": {"$lt": cinq_minute}})
 
 def filtarage_valuebet():
@@ -160,7 +160,7 @@ def enlever_caracteres_speciaux(chaine):
 import re
 
 def enlever_caracteres_speciaux1(chaine):
-    caracteres_speciaux = r"[(){},.&'\"]"
+    caracteres_speciaux = r"[(){},.'\"]"
     return re.sub(caracteres_speciaux, '', chaine)
 
 
@@ -245,7 +245,6 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
                 resultat= collection3.update_one(filtre, mise_a_jour)
                 if resultat.modified_count > 0:
                     print("Mise à jour effectuée avec succès.")
-                    v["N_update"]+=1
                 else:
                     print("Aucun document mis à jour.")
             else:
@@ -275,7 +274,9 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
             collection4=db_over_under["storage"]
             if list(collection4.find({'id_over_under_1xbet': v["id_over_under_1xbet"],"market":v["market"],"events_1xbet":v["events_1xbet"],"but":v["but"]},{"_id":0})):
                 filtre={'id_over_under_1xbet': v["id_over_under_1xbet"],"market":v["market"],"events_1xbet":v["events_1xbet"],"but":v["but"]}
+                v["N_update"]+=1
                 mise_a_jour={'$set':  {k: v[k] for k in v if k != 'id'}}
+
                 resultat= collection4.update_one(filtre, mise_a_jour)
                 if resultat.modified_count > 0:
                     print("Mise à jour effectuée avec succès.")
@@ -354,6 +355,7 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
 async def over_under_recuperation(a):
     Id = a["id_over_under_1xbet"]
     # Le lien ici est pour les matchs en direct (liveFeed)
+    #ur="https://1xbet.mobi/LineFeed/GetGameZip?id=176746062&lng=fr&isSubGames=true&GroupEvents=true&countevents=50&grMode=2&country=182&marketType=1&mobi=true"
     url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=250&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)

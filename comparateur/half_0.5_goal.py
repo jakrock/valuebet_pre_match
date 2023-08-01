@@ -27,7 +27,7 @@ import sys
 
 
 client=pymongo.MongoClient('localhost',27017)
-db=client["bet_live"]
+db=client["bet"]
 
 
 contenu=''
@@ -36,7 +36,7 @@ contenu=''
 db=client["info_betkeen"]
 #collection= db["cookie_desktop"]
 #collection1=db["cookie_mobile"]
-con=db["liste_match_betkeen_live"]
+con=db["liste_match_betkeen"]
 
 c=client.info_betkeen.collection1
 #__r=c.find()
@@ -65,7 +65,7 @@ headers = {
     'x-requested-with': 'XMLHttpRequest'
 }
 
-db_over_under=client["finale"]
+db_over_under=client["finale_pre"]
 collection1=db_over_under["First Half Goals 0.5"]
 data=list(collection1.find({},{"_id":0}))
 
@@ -132,12 +132,26 @@ def last_surebet():
 def last_surebet1():
     cinq_minute=time.time()-100
     result = collection3.delete_many({"last_update": {"$lt": cinq_minute}})
-betkeen=''
-_1xbet=''
 
-async def over_under_traitement(lien,lien1,unxbet,ligue,a,data1,a1,*args,**kwargs):
-    global betkeen
-    global _1xbet
+
+
+
+import unicodedata
+
+def enlever_caracteres_speciaux(chaine):
+    chaine = unicodedata.normalize('NFKD', chaine).encode('ASCII', 'ignore').decode('utf-8')
+    return chaine
+
+import re
+
+def enlever_caracteres_speciaux1(chaine):
+    caracteres_speciaux = r"[(){},&.'\"]"
+    return re.sub(caracteres_speciaux, '', chaine)
+
+
+async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data1,a1,*args,**kwargs):
+    
+
     last_surebet()
     last_surebet1()
     t={}
@@ -177,7 +191,7 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,a,data1,a1,*args,**kwarg
     p_over_betkeen = (1 / over_betkeen) 
     p_under_betkeen = (1 / under_betkeen) 
     marge =  (p_under_betkeen + p_over_betkeen)-1
-    if marge <0.09 and over_betkeen<9 and under_betkeen<9:
+    if marge <0.07 and over_betkeen<9 and under_betkeen<9:
         m_over_betkeen = (2 * over_betkeen) / (2 - marge * over_betkeen)
         m_under_betkeen = (2 * under_betkeen) / (2 - marge * under_betkeen)
 
@@ -201,9 +215,13 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,a,data1,a1,*args,**kwarg
         if value_over_1xbet:
             value[f"value_over_half_1xbet {goal}".replace(".",",")]=value_over_1xbet
             value["ecart"]=value_over_1xbet-over_betkeen
+            v["valeur"]=value_over_1xbet
+
         if value_under_1xbet:
             value[f"value_under_half_1xbet {goal}".replace(".",",")]=value_under_1xbet
             value["ecart"]=value_under_1xbet-under_betkeen
+            v["valeur"]=value_under_1xbet
+
         if value:
             v["valuebet"]=value
             v["but"]=goal
@@ -305,11 +323,10 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,a,data1,a1,*args,**kwarg
 
 #over_under_traitement(home_handicap=-4,away_handicap=4,G=3,T_home=7,T_away=8)
 async def over_under_recuperation(a):
-    global betkeen
-    global _1xbet
+
     Id = a["id_half_0_5_1xbet"]
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LiveFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)
     except Exception as e:
@@ -325,16 +342,24 @@ async def over_under_recuperation(a):
         print(f'Probleme {e} au niveau de l api betkeen')
         return None
     betkeen=data1["EventMarket"]
-    O1=data["Value"]["O1"]
-    O2=data["Value"]["O2"]
+    
+    O1=data["Value"]["O1"].replace(" ","-")
+    O1=enlever_caracteres_speciaux(O1)
+    O2=data["Value"]["O2"].replace(" ","-")
+    O2=enlever_caracteres_speciaux(O2)
     _1xbet=f"{O1} v {O2}"
     
-    unxbet=f"{O1} {O2}".replace(" ","-")
+    unxbet=f"{O1}-{O2}".replace(" ","-")
+    unxbet=enlever_caracteres_speciaux(unxbet)
+    unxbet=enlever_caracteres_speciaux1(unxbet)
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
+    ligue=enlever_caracteres_speciaux(ligue)
+    ligue=enlever_caracteres_speciaux1(ligue)
     LI=data["Value"]["LI"]
-    lien=f"https://1xbet.mobi/fr/live/football/{LI}-{ligue}/{Id}-{unxbet}"
+    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{Id}-{unxbet}"
     print(lien)
     lien1=f"https://desk.easysport.bet/Home/FormBet/{Id1}"
+    
     data1=data1["Selections"]
     if data1==[]:
         print("il n y a de data au niveau de l'api betkeen"  )
@@ -352,7 +377,7 @@ async def over_under_recuperation(a):
 
 
     try:
-        await over_under_traitement(lien,lien1,unxbet,ligue,LI,a,data1,a1,goal=0.5,G=4,over_T=9,under_T=10)
+        await over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data1,a1,goal=0.5,G=4,over_T=9,under_T=10)
 
     except Exception as e :
         print(f"l erreur {e} est survenue lors de l execution de over_under_traitement")

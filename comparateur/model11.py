@@ -39,8 +39,8 @@ async def main():
     scheduler = AsyncIOScheduler()
 
     # Planifiez l'exécution des fonctions avec un intervalle spécifique (par exemple, toutes les 5 secondes)
-    scheduler.add_job(main1, 'interval', seconds=23, max_instances=15)
-    scheduler.add_job(main2, 'interval', seconds=21, max_instances=15)
+    scheduler.add_job(main1, 'interval', seconds=450, max_instances=15)
+    scheduler.add_job(main2, 'interval', seconds=450, max_instances=15)
 
 
 
