@@ -38,7 +38,7 @@ def timestamp(x):
         "May": 5,
         "Jun": 6,
         "juil.": 7,
-        "Aug": 8,
+        "août": 8,
         "Sep": 9,
         "Oct": 10,
         "Nov": 11,
