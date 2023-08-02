@@ -58,7 +58,7 @@ pprint(a)
 
 
 def mongodbParking():
-	db_match_odd=client["finale"]
+	db_match_odd=client["finale_pre"]
 	collection1=db_match_odd["Half Time"]
 
 
