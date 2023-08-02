@@ -325,9 +325,9 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
 async def over_under_recuperation(a):
 
     Id = a["id_half_0_5_1xbet"]
-    mg=a['MG']
+    mg=a['MT']
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=250&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={mg+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=250&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)
     except Exception as e:
@@ -349,7 +349,7 @@ async def over_under_recuperation(a):
     O2=data["Value"]["O2"].replace(" ","-")
     O2=enlever_caracteres_speciaux(O2)
     _1xbet=f"{O1} v {O2}"
-    
+    ci=data["value"]["CI"]
     unxbet=f"{O1}-{O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
     unxbet=enlever_caracteres_speciaux1(unxbet)
@@ -357,7 +357,7 @@ async def over_under_recuperation(a):
     ligue=enlever_caracteres_speciaux(ligue)
     ligue=enlever_caracteres_speciaux1(ligue)
     LI=data["Value"]["LI"]
-    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{Id}-{unxbet}"
+    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{ci}-{unxbet}"
     print(lien)
     lien1=f"https://desk.easysport.bet/Home/FormBet/{Id1}"
     
@@ -383,12 +383,12 @@ async def over_under_recuperation(a):
 
     except Exception as e :
         print(f"l erreur {e} est survenue lors de l execution de over_under_traitement")
+
+
     
-asyncio.run(over_under_recuperation(resultat[10]))
 
 
-
-
+#asyncio.run(over_under_recuperation(resultat[10]))
 
 
 #asyncio.run(over_under_recuperation(resultat[1]))

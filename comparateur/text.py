@@ -34,7 +34,7 @@ collection2=db["liste_match_live"]
 
 
 result=collection2.find({},{"Value.O1":1,'_id':0})
-result=collection2.find({},{"Value.I":1 ,"Value.O1":1 ,"Value.O2":1,"Value.CI":1,"Value.L":1,"Value.S":1 ,'_id':0})
+result=collection2.find({},{"Value.I":1 ,"Value.O1":1 ,"Value.O2":1,"Value.CI":1,"Value.L":1,"Value.S":1,'Value.SG.0.MG':1 ,'_id':0})
 #pprint(list(result))
 p=list(result)
 z=[list(x.values()) for x in p]

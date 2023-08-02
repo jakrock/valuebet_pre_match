@@ -322,8 +322,9 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
 async def over_under_recuperation(a):
 
     Id = a["id_half_2_5_1xbet"]
+    mg=a["MT"]
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={mg+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)
     except Exception as e:
@@ -350,11 +351,12 @@ async def over_under_recuperation(a):
     unxbet=f"{O1}-{O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
     unxbet=enlever_caracteres_speciaux1(unxbet)
+    ci=data["value"]["CI"]
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
     ligue=enlever_caracteres_speciaux(ligue)
     ligue=enlever_caracteres_speciaux1(ligue)
     LI=data["Value"]["LI"]
-    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{Id}-{unxbet}"
+    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{ci}-{unxbet}"
     print(lien)
     lien1=f"https://desk.easysport.bet/Home/FormBet/{Id1}"
 

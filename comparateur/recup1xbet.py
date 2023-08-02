@@ -103,6 +103,7 @@ while n<len(lot):
 
 
 result=collection2.find({},{"Value.I":1 ,"Value.O1":1 ,"Value.O2":1,"Value.CI":1,"Value.L":1,"Value.S":1 ,'Value.SG.0.MG':1,'_id':0})
+
 p=list(result)
 z=[list(x.values()) for x in p]
 resultat = list(itertools.chain.from_iterable(z))

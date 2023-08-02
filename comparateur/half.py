@@ -182,8 +182,9 @@ result=collection2.delete_one({"id_1x2_1xbet":453156054})
 async def match_odd_recuperation(a):
     b=a.copy()
     Id = a["id_half_1xbet"]
+    mg=a["MT"]
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=100&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={mg+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=100&grMode=2&country=182&marketType=1&mobi=true"
     try :
         data = await fetch(url)
     except Exception as e:
@@ -203,6 +204,7 @@ async def match_odd_recuperation(a):
     betkeen=data1["EventMarket"]
     O1=data["Value"]["O1"].replace(" ","-")
     O1=enlever_caracteres_speciaux(O1)
+    ci=data["value"]["CI"]
     O2=data["Value"]["O2"].replace(" ","-")
     O2=enlever_caracteres_speciaux(O2)
     _1xbet=f"{O1} v {O2}"
@@ -213,7 +215,7 @@ async def match_odd_recuperation(a):
     ligue=enlever_caracteres_speciaux(ligue)
     ligue=enlever_caracteres_speciaux1(ligue)
     LI=data["Value"]["LI"]
-    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{Id}-{unxbet}"
+    lien=f"https://1xbet.mobi/fr/line/football/{LI}-{ligue}/{ci}-{unxbet}"
     print(lien)
     lien1=f"https://desk.easysport.bet/Home/FormBet/{Id1}"
     b["lien"]=lien
