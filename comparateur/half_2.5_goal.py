@@ -351,7 +351,7 @@ async def over_under_recuperation(a):
     unxbet=f"{O1}-{O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
     unxbet=enlever_caracteres_speciaux1(unxbet)
-    ci=data["value"]["CI"]
+    ci=data["Value"]["CI"]
     ligue=data["Value"]["LE"].replace(" ","-").replace(".","")
     ligue=enlever_caracteres_speciaux(ligue)
     ligue=enlever_caracteres_speciaux1(ligue)

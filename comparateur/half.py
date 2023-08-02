@@ -204,7 +204,7 @@ async def match_odd_recuperation(a):
     betkeen=data1["EventMarket"]
     O1=data["Value"]["O1"].replace(" ","-")
     O1=enlever_caracteres_speciaux(O1)
-    ci=data["value"]["CI"]
+    ci=data["Value"]["CI"]
     O2=data["Value"]["O2"].replace(" ","-")
     O2=enlever_caracteres_speciaux(O2)
     _1xbet=f"{O1} v {O2}"

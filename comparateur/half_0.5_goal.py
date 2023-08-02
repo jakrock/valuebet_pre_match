@@ -349,7 +349,7 @@ async def over_under_recuperation(a):
     O2=data["Value"]["O2"].replace(" ","-")
     O2=enlever_caracteres_speciaux(O2)
     _1xbet=f"{O1} v {O2}"
-    ci=data["value"]["CI"]
+    ci=data["Value"]["CI"]
     unxbet=f"{O1}-{O2}".replace(" ","-")
     unxbet=enlever_caracteres_speciaux(unxbet)
     unxbet=enlever_caracteres_speciaux1(unxbet)
