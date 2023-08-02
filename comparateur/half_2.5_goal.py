@@ -323,7 +323,7 @@ async def over_under_recuperation(a):
 
     Id = a["id_half_2_5_1xbet"]
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)
     except Exception as e:
@@ -365,7 +365,7 @@ async def over_under_recuperation(a):
     #print(data1)
     t={}
     try:
-        a1=[list(x.values()) for  x in data["Value"]["SG"][0]["GE"]]
+        a1=[list(x.values()) for  x in data["Value"]["GE"]]
     except Exception as e:
         print(f"le probleme {e} est survenu au niveau de <<a1=[list(x.values()) for x in data['Value']['GE']]>>")
         return None

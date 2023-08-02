@@ -31,10 +31,13 @@ def recuperation_id_match_odds(data):
 	liste=[]
 	Id={}
 	for i in data:
+		
 		Id["events_1xbet"]=i['events1xbet'] or None
 		Id["events_betkeen"]=i["events"] or None
 		Id["heure_debut"]=i["S"] or None
 		Id["id_half_2_5_1xbet"]=i["Id1xbet"] or None
+		Id["MT"]=i["MT"]
+
 		#Id["4"]=i["4"]
 
 		r1=list(collection.find({"4":str(i["4"])},{"_id":0}))
