@@ -461,8 +461,8 @@ batch_size = 20
 max_concurrent_tasks = 20
 
 # Appel de la fonction asynchrone pour traiter l'ensemble de données
-#loop = asyncio.get_event_loop()
-#loop.run_until_complete(process_data_set(resultat, batch_size, max_concurrent_tasks))
+loop = asyncio.get_event_loop()
+loop.run_until_complete(process_data_set(resultat, batch_size, max_concurrent_tasks))
 
 
 client.close()
