@@ -178,6 +178,7 @@ async def match_odd_recuperation(a):
     Id = a["id_1x2_1xbet"]
     # Le lien ici est pour les matchs en direct (liveFeed)
     url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=50&grMode=2&country=182&marketType=1&mobi=true"
+    #"https://1xbet.mobi/LineFeed/GetGameZip?id=467124658&lng=fr&isSubGames=true&GroupEvents=true&countevents=50&grMode=2&country=182&marketType=1&mobi=true"
     try :
         data = await fetch(url)
     except Exception as e:
