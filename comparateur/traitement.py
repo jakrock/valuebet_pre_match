@@ -97,7 +97,7 @@ data1["1xbetdate"] = data1["1xbetEvents"].apply(lambda x: mb["date"][x[2]])
 data1["1xbetstamp"] = data1["1xbetEvents"].apply(lambda x: mb["S"][x[2]])
 data1["Id1xbet"] = data1["1xbetEvents"].apply(lambda x: mb["I"][x[2]])
 data1["events1xbet"] = data1["1xbetEvents"].apply(lambda x: mb["events"][x[2]])
-data1["MT"] = data1["1xbetEvents"].apply(lambda x: mb["MG"][x[2]])
+#data1["MT"] = data1["1xbetEvents"].apply(lambda x: mb["MG"][x[2]])
 didi={"nombre":[],"ok":[]}
 didi=pd.DataFrame(didi)
 import pandas as pd

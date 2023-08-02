@@ -322,9 +322,9 @@ async def over_under_traitement(lien,lien1,unxbet,ligue,LI,betkeen,_1xbet,a,data
 async def over_under_recuperation(a):
 
     Id = a["id_half_2_5_1xbet"]
-    mg=a["MT"]
+    #mg=a["MT"]
     # Le lien ici est pour les matchs en direct (liveFeed)
-    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={mg+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
+    url = f"https://1xbet.mobi/LineFeed/GetGameZip?id={Id+1}&lng=fr&tzo=2&isSubGames=true&GroupEvents=true&countevents=2500&grMode=2&country=182&marketType=1&mobi=true"
     try:
         data=await fetch(url)
     except Exception as e:
