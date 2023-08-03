@@ -138,7 +138,7 @@ dict_df = data1.to_dict('records')
 
 
 #d=data1.loc[data1["1xbetEvents"].apply(lambda x: x[1]) > 70]
-d = data1.loc[(data1["1xbetEvents"].apply(lambda x: x[1]) > 50) & (data1["S"] == data1["1xbetstamp"])]
+d = data1.loc[(data1["1xbetEvents"].apply(lambda x: x[1]) > 77) & (data1["S"] == data1["1xbetstamp"])]
 
 
 print(d)
